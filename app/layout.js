@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import { AuthProvider } from "./_utils/auth-context";
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
