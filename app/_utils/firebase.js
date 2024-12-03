@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getAnalytics } from "firebase/analytics"; // Import getAnalytics
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PRIVATE_FIREBASE_API_KEY,
@@ -15,6 +16,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const analytics = getAnalytics(app);
+const analytics = typeof window !== "undefined" ? getAnalytics(app) : null; // Initialize analytics only if window is defined
 
-export { auth, db };
+export { auth, db, analytics };
