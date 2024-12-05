@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../_utils/auth-context';
 import RecipeForm from '../components/RecipeForm';
 import RecipeList from '../components/RecipeList';
+import Footer from '../components/Footer';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
