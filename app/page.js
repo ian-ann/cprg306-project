@@ -25,15 +25,25 @@ export default function Home() {
     }
   };
 
+  if (user != null) {
+    router.push('./recipe-list'); // Redirect to the home page
+    return null;
+  }
+
   return (
-    <div>
-      <h1>{isRegistering ? 'Register' : 'Login'}</h1>
-      {user ? (
-        <div>
-          <p>Welcome, {user.email}</p>
-          <button onClick={logout}>Logout</button>
-        </div>
-      ) : (
+    <div
+      style={{
+        backgroundImage: 'url(background.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '2rem', borderRadius: '8px' }}>
+        {/* <h1 className="px-4 py-2 font-extrabold black rounded" >{isRegistering ? 'Register' : 'Login'}</h1> */}
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email">Email:</label>
@@ -57,16 +67,32 @@ export default function Home() {
           </div>
           <button type="submit">{isRegistering ? 'Register' : 'Login'}</button>
         </form>
-      )}
-      <button onClick={() => setIsRegistering(!isRegistering)}>
-        {isRegistering ? 'Already have an account? Login' : "Don't have an account? Register"}
-      </button>
-      {!user && (
         <div>
-          <button onClick={loginWithGoogle}>Login with Google</button>
-          <button onClick={loginWithGithub}>Login with GitHub</button>
+          <p>
+            {isRegistering ? (
+              <>
+                Already have an account?{' '}
+                <a onClick={() => setIsRegistering(false)}>Login</a>
+              </>
+            ) : (
+              <>
+                Don't have an account?{' '}
+                <a onClick={() => setIsRegistering(true)}>Register</a>
+              </>
+            )}
+          </p>
         </div>
-      )}
+        {!user && (
+          <div>
+            <div>
+              <button onClick={loginWithGoogle}>Login with Google</button>
+            </div>
+            <div>
+              <button onClick={loginWithGithub}>Login with GitHub</button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

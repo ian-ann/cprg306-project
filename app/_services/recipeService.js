@@ -1,5 +1,7 @@
 import { db } from "../_utils/firebase";
-import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "firebase/firestore"; //should I use firestore or neon DB? I should use neon DB
+
+// I need a get function button I can hide to get all recipes from the free apis
 
 const recipeCollection = collection(db, "recipes");
 
