@@ -1,7 +1,11 @@
 import { useState } from "react";
 
-export default const RecipeForm = () => {
+const Footer = () => {
+  return (
+    <footer>
+      <p>© 2024 Recipe Sharing Platform. All rights reserved.</p>
+    </footer>
+  );
+};
 
- return (
-   <div></div>
-  )};
+export default Footer;
