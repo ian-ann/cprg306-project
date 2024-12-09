@@ -35,7 +35,7 @@ export default function RecipeForm({ initialData, onSubmit }) {
       Instructions,
       ingredients: ingredients.map(ingredient => ({
         ingredientName: ingredient.ingredientName || ingredient.name,
-        ingredientMeasure: ingredient.measures || ingredient.measure,
+        measures: ingredient.measures || ingredient.measure,
       })),
     };
 
@@ -43,7 +43,7 @@ export default function RecipeForm({ initialData, onSubmit }) {
   };
 
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { ingredientName: '', ingredientMeasure: '' }]);
+    setIngredients([...ingredients, { ingredientName: '', measures: '' }]);
   };
 
   const handleIngredientChange = (index, field, value) => {
@@ -86,15 +86,15 @@ export default function RecipeForm({ initialData, onSubmit }) {
             <input
               type="text"
               placeholder="Name"
-              value={ingredient.ingredientName || ingredient.name}
+              value={ingredient.ingredientName || ingredient.name || ''}
               onChange={(e) => handleIngredientChange(index, 'ingredientName', e.target.value)}
               className="border p-2 rounded w-full mr-2"
             />
             <input
               type="text"
               placeholder="Measure"
-              value={ingredient.ingredientMeasure || ingredient.measure}
-              onChange={(e) => handleIngredientChange(index, 'ingredientMeasure', e.target.value)}
+              value={ingredient.measures || ingredient.measure || ''}
+              onChange={(e) => handleIngredientChange(index, 'measures', e.target.value)}
               className="border p-2 rounded w-full mr-2"
             />
             <button

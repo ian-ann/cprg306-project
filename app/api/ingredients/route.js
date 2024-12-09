@@ -16,27 +16,25 @@ export async function POST(req) {
     const body = await req.json();
     console.log('Request body:', body); // Add logging to debug the request body
 
-        // Parse the ingredients data
-        const parsedIngredients = ingredients.map(ingredients => IngredientSchema.parse(ingredients));
+    // Parse the ingredient data
+    const parsedIngredientData = IngredientSchema.parse(body);
+    console.log('Parsed Ingredient Data:', parsedIngredientData);
 
     // Construct the SQL query to insert the ingredient data
     const insertIngredientQuery = `
-      INSERT INTO "ingredients" ("recipeId", "ingredientName", "measures")
+      INSERT INTO ingredients ("recipeId", "ingredientName", "measures")
       VALUES ($1, $2, $3)
-      RETURNING ID;
+      RETURNING id;
     `;
-    const values = [recipeId, ingredientName, measures];
+    const ingredientValues = [parsedIngredientData.recipeId, parsedIngredientData.ingredientName, parsedIngredientData.measures];
+
+    console.log(insertIngredientQuery, ingredientValues); // Add logging to debug the request query
 
     // Execute the SQL query
-    const result = await sql(insertIngredientQuery, values);
-    console.log('SQL query result:', result);
+    const ingredientResult = await sql(insertIngredientQuery, ingredientValues);
+    console.log('SQL query result:', ingredientResult);
 
-    // Check if the insertion was successful
-    if (result.rowCount === 0) {
-      throw new Error('Failed to insert ingredient');
-    }
-
-    return new Response(JSON.stringify(result), { status: 201 });
+    return new Response(JSON.stringify(ingredientResult), { status: 201 });
   } catch (error) {
     console.error('Error executing SQL query:', error);
     return NextResponse.json({ message: 'Error executing SQL query', error: error.message }, { status: 500 });
@@ -105,7 +103,7 @@ export async function DELETE(req) {
     console.log('SQL query result:', result);
 
     return NextResponse.json(null, { status: 200 });
-    
+
   } catch (error) {
     console.error('Error executing SQL query:', error);
     return NextResponse.json({ message: 'Error executing SQL query', error: error.message }, { status: 500 });
