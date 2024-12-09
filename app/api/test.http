@@ -1,0 +1,39 @@
+
+GET http://localhost:3000/api/recipes
+
+###
+
+POST http://localhost:3000/api/recipes HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Sparky",
+    "age": 4
+}
+
+###
+
+GET http://localhost:3000/api/recipes/2
+
+###
+
+PUT http://localhost:3000/api/recipes/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Bob",
+    "age": 5
+}
+
+###
+
+PATCH http://localhost:3000/api/recipes/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "age": 10
+}
+
+###
+
+DELETE http://localhost:3000/api/recipes/3
