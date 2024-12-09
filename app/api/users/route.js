@@ -1,22 +1,20 @@
 "use client";
 
-// pages/api/login.js
-import { Client } from 'pg';
+import { z } from 'zod';
+import { neon } from '@neondatabase/serverless';
+import { NextResponse } from 'next/server';
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-});
-
-client.connect();
+const dbUrl = process.env.DATABASE_URL || "";
+const sql = neon(dbUrl);
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { username, password } = req.body;
 
     try {
-      const query = 'SELECT * FROM users WHERE username = $1 AND password = $2';
+      const sql = 'SELECT * FROM users WHERE username = $1 AND password = $2';
       const values = [username, password];
-      const result = await client.query(query, values);
+      const result = await sql(query, values);
 
       if (result.rows.length > 0) {
         res.status(200).json({ message: 'Login successful' });
